@@ -27,8 +27,12 @@ L'utilisateur doit s'inscrire pour pouvoir passer commande, adopter un animal, f
     - Modification/Suppression d'un animal **(ADMIN)**
 - Produits pour animaux
     - Affichage des produits
+    - Ajout au panier **(CONNECTED)**
     - Ajout d'un produit **(ADMIN)**
     - Modification/Suppression d'un produit **(ADMIN)**
+- Panier
+    - Affichage du panier **(CONNECTED)**
+    - Modifier les éléments du paniers **(CONNECTED)**
 - Dons
     - Renseigner le montant **(CONNECTED)**
     - Afficher le total ce mois-ci
@@ -73,5 +77,5 @@ L'utilisateur doit s'inscrire pour pouvoir passer commande, adopter un animal, f
     - Image_url *(nullable)*
     - InStock
 - Cart
-    - Animal/Product
+    - Product
     - Quantity
