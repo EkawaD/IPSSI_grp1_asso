@@ -60,8 +60,8 @@ L'utilisateur doit s'inscrire pour pouvoir passer commande, adopter un animal, f
     - Age 
     - Weight
     - Sex
-    - AdoptedAt
-    - Image_url *(nullable)*
+    - AdoptedAt *(nullable)*
+    - ImageUrl *(nullable)*
 - Product
     - Name
     - Description
@@ -77,5 +77,9 @@ L'utilisateur doit s'inscrire pour pouvoir passer commande, adopter un animal, f
     - Image_url *(nullable)*
     - InStock
 - Cart
+    - Product
+    - User
+- PurchasedHistory (Historique, si temps)
+    - Cart
     - Product
     - Quantity
