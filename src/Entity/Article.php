@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +22,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
@@ -33,23 +35,29 @@ class Article
     private $imageUrl;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="datetime_immutable")
      */
-    private $inStock;
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTimeImmutable());
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -78,15 +86,16 @@ class Article
         return $this;
     }
 
-    public function getInStock(): ?bool
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->inStock;
+        return $this->createdAt;
     }
 
-    public function setInStock(bool $inStock): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->inStock = $inStock;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
+
 }
