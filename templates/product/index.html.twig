@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block content %}
+
+    {% for message in app.flashes('product-danger') %}
+        <div class="text-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for product in products %}
+        <div class="container-fluid">
+            {{product.name}}
+            {{product.description}}
+            {{product.price}}
+            <a  role="button" class="btn btn-outline-dark" href={{ path('product', { 'id': product.id }) }} >  En savoir plus</a>
+        </div>    
+    {% else %}
+        <p> Pas de produits disponible </p>
+    {% endfor %}
+
+    <a  role="button" class="btn btn-outline-dark" href={{ path('new_product') }}> (Admin) Ajouter un product</a>
+{% endblock %}

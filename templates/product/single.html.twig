@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{product.name}} adoption {% endblock %}
+
+{% block content %}
+    <h2> + /BUTTON/ Info produit > Redirect "Se connecter" </h2>
+    <p>{{ product.name }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.price }}</p>
+    <a  role="button" class="btn btn-outline-success" href="#" >  Ajouter le produit</a>
+    <a  role="button" class="btn btn-outline-danger" href={{ path('delete_product', { 'id': product.id }) }} > (Admin) Supprimer produit</a>
+    <a  role="button" class="btn btn-outline-warning" href={{ path('update_product', { 'id': product.id }) }} > (Admin) Modifier produit</a>
+    <a  role="button" class="btn btn-outline-secondary" href={{ path('products') }} > Retour aux pets adopté</a>
+{% endblock %}

@@ -5,6 +5,12 @@
 {% block content %}
     <h1> + derniers animaux.twig </h1>
 
+    {% for message in app.flashes('pet-danger') %}
+        <div class="text-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% for pet in pets %}
         <div class="container-fluid">
             {{pet.name}}

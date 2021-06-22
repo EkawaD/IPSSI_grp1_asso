@@ -40,11 +40,6 @@ class Product
     private $imageUrl;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="products")
-     */
-    private $cart;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="products")
      */
     private $carts;
@@ -110,18 +105,6 @@ class Product
     public function setImageUrl($imageUrl): self
     {
         $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
-    public function getCart(): ?Cart
-    {
-        return $this->cart;
-    }
-
-    public function setCart(?Cart $cart): self
-    {
-        $this->cart = $cart;
 
         return $this;
     }

@@ -87,7 +87,7 @@ class BlogController extends AbstractController
         $em->remove($article);
         $em->flush();
 
-        $this->addFlash("danger", "Article supprimé");
+        $this->addFlash("blog-danger", "Article supprimé");
     
         return $this->redirectToRoute("blog");
     }
