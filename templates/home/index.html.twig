@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nom de l'asso{% endblock %}
+{% block title %}Save Me Please 🐈{% endblock %}
 
 {% block content %}
-    <h1> Page Acceuil </h1>
-    <h1> + derniers animaux.twig </h1>
-    <h1> + produits phare.twig </h1>
-    <h1> + dons </h1>
+
+    {# Carousel pet #}
+    {% include('pet/carrousel.html.twig') %}
+
+    {# Carousel product #}
+    {% include('product/carrousel.html.twig') %}
+
 {% endblock %}
 
 
