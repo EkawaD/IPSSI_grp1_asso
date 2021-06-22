@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class ProductsController extends AbstractController
 {
@@ -20,7 +22,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/product/new', name: 'new_product')]
+    #[Route('/product/new', name: 'new_product'), IsGranted("ROLE_ADMIN")]
     public function newProduct(Request $request): Response
     {
         $product = new Product();
@@ -56,7 +58,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/product/update/{id}', name: 'update_product')]
+    #[Route('/product/update/{id}', name: 'update_product'), IsGranted("ROLE_ADMIN")]
     public function updateProduct(Product $product, Request $request): Response
     {
         $form = $this->createForm(ProductType::class, $product);
@@ -79,7 +81,7 @@ class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/product/delete/{id}', name: 'delete_product')]
+    #[Route('/product/delete/{id}', name: 'delete_product'), IsGranted("ROLE_ADMIN")]
     public function deleteProduct(Product $product): Response
     {
         $em = $this->getDoctrine()->getManager();

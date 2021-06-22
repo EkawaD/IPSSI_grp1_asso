@@ -3,7 +3,7 @@
 {% block title %}Adopter un animal{% endblock %}
 
 {% block content %}
-    <h1> + derniers animaux.twig </h1>
+    {% include "pet/carrousel.html.twig" %}
 
     {% for message in app.flashes('pet-danger') %}
         <div class="text-danger">
@@ -22,5 +22,8 @@
         <p> Pas d'animaux a adopter actuellement </p>
     {% endfor %}
 
-    <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> (Admin) Ajouter un pet</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> Ajouter un pet</a>
+    {% endif %}
+    
 {% endblock %}

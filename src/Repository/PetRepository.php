@@ -22,19 +22,18 @@ class PetRepository extends ServiceEntityRepository
     // /**
     //  * @return Pet[] Returns an array of Pet objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+    public function findPetLastMonth()
+    {        
+        $qb = $this->createQueryBuilder('p');
+        return $qb
+            ->select('p.id', 'p.name', 'p.species', 'p.breed', 'p.age', 'p.weight', 'p.sex', 'p.adoptedAt', 'p.imageUrl')
+            ->andWhere('DATE_DIFF(CURRENT_DATE(), p.adoptedAt) < 30')
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            // ->setMaxResults(30)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Pet

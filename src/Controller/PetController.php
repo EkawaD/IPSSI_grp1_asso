@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PetController extends AbstractController
 {
@@ -15,12 +16,13 @@ class PetController extends AbstractController
     public function index(): Response
     {
         $pets = $this->getDoctrine()->getRepository(Pet::class)->findAll();
+        // $pets = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
         return $this->render('pet/index.html.twig', [
             'pets' => $pets,
         ]);
     }
 
-    #[Route('/pet/new', name: 'new_pet')]
+    #[Route('/pet/new', name: 'new_pet'), IsGranted("ROLE_ADMIN")]
     public function newPet(Request $request): Response
     {
         $pet = new Pet();
@@ -47,7 +49,7 @@ class PetController extends AbstractController
         ]);
     }
 
-    #[Route('/pet/update/{id}', name: 'update_pet')]
+    #[Route('/pet/update/{id}', name: 'update_pet'), IsGranted("ROLE_ADMIN")]
     public function updatePet(Pet $pet, Request $request): Response
     {
         $form = $this->createForm(PetType::class, $pet);
@@ -70,7 +72,7 @@ class PetController extends AbstractController
         ]);
     }
 
-    #[Route('/pet/delete/{id}', name: 'delete_pet')]
+    #[Route('/pet/delete/{id}', name: 'delete_pet'), IsGranted("ROLE_ADMIN")]
     public function deletePet(Pet $pet): Response
     {
         $em = $this->getDoctrine()->getManager();
@@ -82,7 +84,6 @@ class PetController extends AbstractController
         return $this->redirectToRoute("adopt");
     }
 
-    
     #[Route('/pet/{id}', name: 'pet')]
     public function pet(Pet $pet)
     {

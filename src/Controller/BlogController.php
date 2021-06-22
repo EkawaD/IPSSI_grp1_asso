@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class BlogController extends AbstractController
 {
@@ -20,7 +21,7 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/new', name: 'new_article')]
+    #[Route('/blog/new', name: 'new_article'), IsGranted("ROLE_ADMIN")]
     public function newArticle(Request $request): Response
     {
         $article = new Article();
@@ -57,7 +58,7 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/update/{id}', name: 'update_article')]
+    #[Route('/blog/update/{id}', name: 'update_article'), IsGranted("ROLE_ADMIN")]
     public function updateArticle(Article $article, Request $request): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
@@ -80,7 +81,7 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/delete/{id}', name: 'delete_article')]
+    #[Route('/blog/delete/{id}', name: 'delete_article'), IsGranted("ROLE_ADMIN")]
     public function deleteArticle(Article $article): Response
     {
         $em = $this->getDoctrine()->getManager();

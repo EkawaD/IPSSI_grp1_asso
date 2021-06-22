@@ -22,5 +22,8 @@
         <p> Pas d'articles actuellement </p>
     {% endfor %}
 
+    {% if is_granted("ROLE_ADMIN") %}
     <a  role="button" class="btn btn-outline-dark" href="/blog/new"> (Admin) Ajouter un article</a>
+    {% endif %}
+    
 {% endblock %}

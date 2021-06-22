@@ -6,7 +6,11 @@
     <p>{{ article.title }}</p>
     <p>{{ article.description }}</p>
     <p>{{ article.createdAt|date("d/m/Y") }}</p>
-    <a  role="button" class="btn btn-outline-danger" href={{ path('delete_article', { 'id': article.id }) }} > (Admin) Supprimer article</a>
-    <a  role="button" class="btn btn-outline-warning" href={{ path('update_article', { 'id': article.id }) }}  > (Admin) Modifier article</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a  role="button" class="btn btn-outline-danger" href={{ path('delete_article', { 'id': article.id }) }} > Supprimer article</a>
+        <a  role="button" class="btn btn-outline-warning" href={{ path('update_article', { 'id': article.id }) }}  > Modifier article</a>
+    {% endif %}
+    
     <a  role="button" class="btn btn-outline-secondary" href={{ path('blog') }}> Retour aux articles </a>
 {% endblock %}
