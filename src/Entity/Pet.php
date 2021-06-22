@@ -57,6 +57,7 @@ class Pet
      */
     private $imageUrl;
 
+
     public function getId(): ?int
     {
         return $this->id;

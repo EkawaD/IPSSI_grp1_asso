@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{pet.name}} adoption {% endblock %}
+
+{% block content %}
+    <h2> + /BUTTON/ Adopter un animal > Redirect "Se connecter" </h2>
+    <p>{{ pet.name }}</p>
+    <p>{{ pet.species }}</p>
+    <p>{{ pet.breed }}</p>
+    <p>{{ pet.age }}</p>
+    <p>{{ pet.weight }}</p>
+    <p>{{ pet.sex }}</p>
+    <a  role="button" class="btn btn-outline-success" href="#" >  Adopter le petit</a>
+{% endblock %}

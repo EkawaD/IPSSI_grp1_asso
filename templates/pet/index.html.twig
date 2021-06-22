@@ -4,8 +4,19 @@
 
 {% block content %}
     <h1> + derniers animaux.twig </h1>
-    <h1> + Liste des Animaux a apdotés </h1>
-    <h2> + (ADMIN) CRUD animal</h2>
-    <h2> + /BUTTON/ Adopter un animal > Redirect "Se connecter" </h2>
-    <h2> + /BUTTON/ Single Animal</h2>
+
+    {% for pet in pets %}
+        <div class="container-fluid">
+            {{pet.name}}
+            {{pet.species}}
+            {{pet.breed}}
+            <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
+            <a  role="button" class="btn btn-outline-danger" href="#" > (Admin) Supprimer pet (il est dead :/)</a>
+            <a  role="button" class="btn btn-outline-warning" href="#" > (Admin) Modifier pet (il a grandi ce con)</a>
+        </div>    
+    {% else %}
+        <p> Pas d'animaux a adopter actuellement </p>
+    {% endfor %}
+
+    <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> (Admin) Ajouter un pet</a>
 {% endblock %}
