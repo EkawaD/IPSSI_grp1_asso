@@ -11,8 +11,6 @@
             {{pet.species}}
             {{pet.breed}}
             <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
-            <a  role="button" class="btn btn-outline-danger" href="#" > (Admin) Supprimer pet (il est dead :/)</a>
-            <a  role="button" class="btn btn-outline-warning" href="#" > (Admin) Modifier pet (il a grandi ce con)</a>
         </div>    
     {% else %}
         <p> Pas d'animaux a adopter actuellement </p>

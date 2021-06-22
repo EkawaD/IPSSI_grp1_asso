@@ -11,4 +11,7 @@
     <p>{{ pet.weight }}</p>
     <p>{{ pet.sex }}</p>
     <a  role="button" class="btn btn-outline-success" href="#" >  Adopter le petit</a>
+    <a  role="button" class="btn btn-outline-danger" href={{ path('delete_pet', { 'id': pet.id }) }} > (Admin) Supprimer pet (il est dead :/)</a>
+    <a  role="button" class="btn btn-outline-warning" href={{ path('update_pet', { 'id': pet.id }) }} > (Admin) Modifier pet (il a grandi ce con)</a>
+    <a  role="button" class="btn btn-outline-secondary" href={{ path('adopt') }} > Retour aux pets</a>
 {% endblock %}

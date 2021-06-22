@@ -48,13 +48,48 @@ class BlogController extends AbstractController
     }
 
     #[Route('/blog/article/{id}', name: 'article')]
-    public function article ($id)
+    public function article (Article $article)
     {
-        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        // $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
         return $this->render("blog/single.html.twig", [
             "article" => $article
         ]);
+    }
+
+    #[Route('/blog/update/{id}', name: 'update_article')]
+    public function updateArticle(Article $article, Request $request): Response
+    {
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            
+            return $this->redirectToRoute("article", [
+                "id" => $article->getId(),
+            ]);
+        }
+
+
+        return $this->render('blog/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/blog/delete/{id}', name: 'delete_article')]
+    public function deleteArticle(Article $article): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+
+        $this->addFlash("danger", "Article supprimé");
+    
+        return $this->redirectToRoute("blog");
     }
 
 
