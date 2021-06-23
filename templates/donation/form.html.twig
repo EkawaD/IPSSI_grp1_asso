@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save Me Please 🐈{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/donation.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<!-- ici => mettre image --> 
+<div class="form-amount">
+    <div>
+        {{form_start(form)}}
+	    {{form_end(form)}}
+    </div>
+    <div>
+        <img src="{{asset('img/yellow_dog.jpg')}}" class="yellow-dog img-fluid" alt="chien trop chou <3 ! ">
+    </div>
+</div>
+    
+{% endblock %}

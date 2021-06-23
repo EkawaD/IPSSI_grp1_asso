@@ -17,9 +17,11 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $pets_last = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
+        $total = $this->getDoctrine()->getRepository(Donation::class)->findAllAmount();
 
         return $this->render('home/index.html.twig', [
             'pets_last' => $pets_last,
+            'total' => $total["total"],
         ]);
     }
 
@@ -39,12 +41,12 @@ class HomeController extends AbstractController
             $em->persist($donation);
             $em->flush();
 
-            $this->addFlash("donation-success", "Merci 😤🥵🤬👺💀");
+            $this->addFlash("donation-success", "Merci pour les ".$donation->getAmount()." € !😤🥵🤬👺💀");
             
             return $this->redirectToRoute("home");
         }
 
-        return $this->render('pet/add.html.twig', [
+        return $this->render('donation/form.html.twig', [
             'form' => $form->createView()
         ]);
     }

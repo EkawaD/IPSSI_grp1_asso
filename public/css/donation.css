@@ -1,0 +1,39 @@
+body{
+    background-color: #EDB506;
+}
+
+.yellow-dog {
+    height: 70vh;
+    border-radius: 80%;
+}
+
+.form-amount{
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto;
+}
+
+.form-amount form {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-amount form > div {
+    display: grid;
+}
+
+.form-amount label{
+    font-size: 1.2em;
+    color: #343842;
+}
+.form-amount input:not(input[type="submit"]){
+    border-radius: 0.3em;
+    padding: 0.3em 0.5em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border: none;
+}
+.form-amount button[type="submit"]{
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    font-size: 1.2em;
+}

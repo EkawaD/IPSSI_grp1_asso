@@ -22,3 +22,14 @@
     height: 100%;
     width: 100%;
 }
+
+.flash-message{
+    font-size: 1.5em;
+}
+
+.flash-message.text-success{
+    border: 2px solid green;
+    border-radius: 0.5em;
+    padding: 0.5em 0.8em;
+    width: fit-content;
+}

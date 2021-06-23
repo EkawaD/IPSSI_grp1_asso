@@ -3,7 +3,15 @@
 {% block title %}Save Me Please 🐈{% endblock %}
 
 {% block content %}
-    
+
+    {{total}} € for now 😎
+
+    {% for message in app.flashes('donation-success') %}
+        <div class="text-success text-center flash-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+        
     {# Carousel pet #}
     {% include('pet/carrousel.html.twig') %}
 

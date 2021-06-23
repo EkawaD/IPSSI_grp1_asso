@@ -18,7 +18,22 @@ class DonationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Donation::class);
     }
+    
 
+    // $q = Doctrine_Query::create()
+    // ->select('SUM(pa.montant) as somme')   
+    // ->from('Participation p')
+	// ->groupby('p.id');
+
+    public function findAllAmount()
+    {
+        
+        return $this->createQueryBuilder('a')
+        ->select('SUM(a.amount) as total')
+        ->getQuery()
+        ->getOneOrNullResult();
+
+    }
     // /**
     //  * @return Donation[] Returns an array of Donation objects
     //  */
