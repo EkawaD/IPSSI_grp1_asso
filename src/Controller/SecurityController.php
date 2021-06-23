@@ -25,8 +25,15 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $current = $this->get('session')->getFlashBag()->get('register_info');
+        if($current) {
+            $email = $current[0][0];
+            $pw =  $current[0][1];
+        }else {
+            $email = "";
+            $pw = "";
+        }
 
-        return $this->render('security/login.html.twig', ['email' => $current[0][0], 'error' => $error, 'current_password' => $current[0][1]]);
+        return $this->render('security/login.html.twig', ['email' => $email, 'error' => $error, 'current_password' => $pw]);
     }
 
     /**
