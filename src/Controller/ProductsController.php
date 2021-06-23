@@ -35,6 +35,11 @@ class ProductsController extends AbstractController
             
             $em = $this->getDoctrine()->getManager();
             
+            $image = $product->getImage();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $product->setImage($imageName);
+            $image->move($this->getParameter('upload_directory'), $imageName);
+
             $em->persist($product);
             $em->flush();
             
@@ -42,7 +47,6 @@ class ProductsController extends AbstractController
                 "id" => $product->getId(),
             ]);
         }
-
 
         return $this->render('product/add.html.twig', [
             'form' => $form->createView()
@@ -67,6 +71,12 @@ class ProductsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $product = $form->getData();
             $em = $this->getDoctrine()->getManager();
+
+            $image = $product->getImage();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $product->setImage($imageName);
+            $image->move($this->getParameter('upload_directory'), $imageName);
+            
             $em->persist($product);
             $em->flush();
             

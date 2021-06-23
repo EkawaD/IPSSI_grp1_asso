@@ -6,9 +6,12 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -35,9 +38,14 @@ class Product
     private $price;
 
      /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @ORM\Column(type="string", length=64, nullable=false)
+     * @Assert\File(
+     *  mimeTypes={"image/png", "image/jpeg"},
+     *  mimeTypesMessage =" Seuls les types {{ types }} sont acceptés."
+     * )
      */
-    private $imageUrl;
+    private $image;
 
     /**
      * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="products")
@@ -92,19 +100,19 @@ class Product
     }
 
     /**
-     * Get the value of imageUrl
+     * Get the value of image
      */
-    public function getImageUrl()
+    public function getImage()
     {
-        return $this->imageUrl;
+        return $this->image;
     }
 
     /**
-     * Set the value of imageUrl
+     * Set the value of image
      */
-    public function setImageUrl($imageUrl): self
+    public function setImage($image): self
     {
-        $this->imageUrl = $imageUrl;
+        $this->image = $image;
 
         return $this;
     }
@@ -136,4 +144,14 @@ class Product
         return $this;
     }
 
+    /**
+     * @ORM\PostRemove
+     */
+    public function deleteImage()
+    {
+        if(file_exists(__DIR__.'/../../public/img/upload/'.$this->image)) {
+            unlink(__DIR__.'/../../public/img/upload/'.$this->image);
+        }
+        return true;
+    }
 }

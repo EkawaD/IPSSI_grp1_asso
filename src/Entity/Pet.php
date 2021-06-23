@@ -57,7 +57,7 @@ class Pet
     
     /**
      *
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=false)
      * @Assert\File(
      *  mimeTypes={"image/png", "image/jpeg"},
      *  mimeTypesMessage =" Seuls les types {{ types }} sont acceptés."
