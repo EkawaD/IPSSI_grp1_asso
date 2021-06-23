@@ -1,5 +1,8 @@
-#wrapper-home-page{
-    display: grid;
+@import "home.css";
+@import "pet.css";
+
+:root {
+    --bg-color: #334d5f;
 }
 
 #donate-button{
@@ -21,30 +24,22 @@
 }
 
 #logo-assoc{
-    height: 75px;
-    border-radius: 50%;
+    height: 50px;
 }
 
-body > .navbar{
-    font-size: 1.3em;
+.content {
+    margin: 4em;
+    min-height: 80vh;
 }
 
-.wrapper-carousel-custom{
-    padding: 0.5rem 1rem;
+.navbar {
+    background-color: var(--bg-color) !important;
 }
-.wrapper-carousel-custom > .carousel{
-    background-color: #dfdfdf;
+
+footer{
+    background-color: var(--bg-color);
+    text-align: center;
+    color: white;
+    height: 7em;
 }
-.carousel-control-prev-icon, .carousel-control-next-icon{
-    background-color: #9e9e9e;
-    border-radius: 50%;
-    box-shadow: 0 0 0 0.2em #9c9c9c;
-}
-.wrapper-carousel-custom .carousel-item{
-    height: 50vh;
-}
-.carousel-item img{
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
-}
+

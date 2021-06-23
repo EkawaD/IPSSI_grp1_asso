@@ -10,20 +10,37 @@
             {{ message }}
         </div>
     {% endfor %}
-
-    {% for pet in pets %}
-        <div class="container-fluid">
-            {{pet.name}}
-            {{pet.species}}
-            {{pet.breed}}
-            <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
-        </div>    
-    {% else %}
-        <p> Pas d'animaux a adopter actuellement </p>
-    {% endfor %}
+    
+    
+    <div class="container-fluid card-deck">
+        <h1>Tout nos animaux en adoption !</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-4 card-pet">
+            {% for pet in pets %} 
+                <div class="col">
+                    <div class="card">
+                        <img class="img-pet" src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
+                        <div class="card-body">
+                            <h5 class="card-title">{{pet.name}}</h5>
+                            <p class="card-text">{{pet.species}}, {{pet.breed}}</p>
+                            <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p> Pas d'animaux a adopter actuellement </p>
+            {% endfor %}
+        </div>
+    </div> 
+  
 
     {% if is_granted("ROLE_ADMIN") %}
-        <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> Ajouter un pet</a>
+    <div class="text-center">
+        <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> Ajouter un animal</a>
+    </div>
+        
     {% endif %}
     
 {% endblock %}
+
+
+

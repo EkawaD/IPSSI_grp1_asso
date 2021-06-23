@@ -5,6 +5,7 @@
 {% block content %}
     <h2> + /BUTTON/ Adopter un animal > Redirect "Se connecter" </h2>
     <p>{{ pet.name }}</p>
+    <img class="img-pet" src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
     <p>{{ pet.species }}</p>
     <p>{{ pet.breed }}</p>
     <p>{{ pet.age }}</p>

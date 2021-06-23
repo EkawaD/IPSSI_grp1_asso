@@ -1,0 +1,10 @@
+
+.card-deck {
+    margin: 2em;
+    text-align: center;
+}
+
+.card-pet {
+    width: 80%;
+    margin: auto;
+}

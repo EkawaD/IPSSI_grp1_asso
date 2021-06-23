@@ -32,9 +32,13 @@ class PetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $pet = $form->getData();
-            
             $em = $this->getDoctrine()->getManager();
-            
+
+            $image = $pet->getImage();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $pet->setImage($imageName);
+            $image->move($this->getParameter('upload_directory'), $imageName);
+
             $em->persist($pet);
             $em->flush();
             
@@ -58,6 +62,12 @@ class PetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pet = $form->getData();
             $em = $this->getDoctrine()->getManager();
+
+            $image = $pet->getImage();
+            $imageName = md5(uniqid()).'.'.$image->guessExtension();
+            $pet->setImage($imageName);
+            $image->move($this->getParameter('upload_directory'), $imageName);
+            
             $em->persist($pet);
             $em->flush();
             

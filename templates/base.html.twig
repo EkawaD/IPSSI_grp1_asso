@@ -24,7 +24,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">
-                        <img id="logo-assoc" src="{{ asset('logo.png') }}"/>
+                        <img id="logo-assoc" class="rounded-circle" src="{{ asset('logo.png') }}"/>
                     </a>
                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,8 +49,19 @@
             </nav>
             {% endblock %}
 
-            {% block content %}
-            {% endblock %}
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+           
+
+            <footer>
+                <div class="pt-4">
+                    <p>Site créé dans le cadre du TP Symfony</p>
+                    <p>Groupe 1 : Sarah PINTO, Brandon SORET, Sébastien GRIVEL, Bastien EDERHY</p>
+                </div>
+                
+            </footer>
 
         {% endblock %}
     </body>

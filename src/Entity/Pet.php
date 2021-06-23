@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PetRepository::class)
@@ -52,10 +53,16 @@ class Pet
      */
     private $adoptedAt;
 
+    
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\File(
+     *  mimeTypes={"image/png", "image/jpeg"},
+     *  mimeTypesMessage =" Seuls les types {{ types }} sont acceptés."
+     * )
      */
-    private $imageUrl;
+    private $image;
 
 
     public function getId(): ?int
@@ -147,15 +154,30 @@ class Pet
         return $this;
     }
 
-    public function getImageUrl(): ?string
+    /**
+     * Get the value of image
+     */
+    public function getImage()
     {
-        return $this->imageUrl;
+        return $this->image;
     }
 
-    public function setImageUrl(?string $imageUrl): self
+    /**
+     * Set the value of image
+     */
+    public function setImage($image): self
     {
-        $this->imageUrl = $imageUrl;
+        $this->image = $image;
 
         return $this;
     }
+
+    public function deleteImage()
+    {
+        if(file_exists(__DIR__.'/../../public/img/upload/'.$this->image)) {
+            unlink(__DIR__.'/../../public/img/upload/'.$this->image);
+        }
+        return true;
+    }
+
 }
