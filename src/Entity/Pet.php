@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PetRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pet
 {
@@ -172,6 +173,9 @@ class Pet
         return $this;
     }
 
+    /**
+     * @ORM\PostRemove
+     */
     public function deleteImage()
     {
         if(file_exists(__DIR__.'/../../public/img/upload/'.$this->image)) {
