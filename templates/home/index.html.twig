@@ -4,7 +4,9 @@
 
 {% block content %}
 
-    {{total}} € for now 😎
+    <div class="total">
+        {{total}} € de dons 😎 YEAH 😎
+    </div>
 
     {% for message in app.flashes('donation-success') %}
         <div class="text-success text-center flash-message">

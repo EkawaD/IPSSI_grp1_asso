@@ -33,3 +33,11 @@
     padding: 0.5em 0.8em;
     width: fit-content;
 }
+
+
+.total {
+    text-align: right;
+    font-size: 2em;
+    font-weight: bold;
+    color: orange;
+}
