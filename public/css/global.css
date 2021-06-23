@@ -44,7 +44,10 @@ footer{
     height: 7em;
 }
 
-
+.card img {
+    max-width: 80vh;
+    max-height: 50vh;
+}
 
 form {
     display: grid;

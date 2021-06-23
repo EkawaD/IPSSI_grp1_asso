@@ -9,20 +9,35 @@
         </div>
     {% endfor %}
 
+
     {% include "product/carrousel.html.twig" %}
-
-    {% for product in products %}
-        <div class="container-fluid">
-            {{product.name}}
-            {{product.description}}
-            {{product.price}}
-            <a  role="button" class="btn btn-outline-dark" href={{ path('product', { 'id': product.id }) }} >  En savoir plus</a>
-        </div>    
-    {% else %}
-        <p> Pas de produits disponible </p>
-    {% endfor %}
-
+    
     {% if is_granted('ROLE_ADMIN') %}
-        <a  role="button" class="btn btn-outline-dark" href={{ path('new_product') }}> Ajouter un produit</a>
+        <a  role="button" class="btn btn-outline-dark" href={{ path('new_product') }}> Ajouter un produit au magasin</a>
     {% endif %}
+
+    <div class="container-fluid card-deck">
+        <div class="row row-cols-1 row-cols-md-2 g-4 m-3">
+            {% for product in products %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <h6 class="card-subtitle text-primary">{{product.price}} €</h6>
+                        <img src={{asset('img/upload/'~product.image)}} alt="product">
+                        <p class="card-text">{{product.description}}</p>
+                        <a  role="button" class="btn btn-outline-dark" href={{ path('product', { 'id': product.id }) }} >  En savoir plus</a>
+                        <a  role="button" class="btn btn-dark" href="#" >  Ajouter au panier</a>
+                    </div>
+
+                </div>
+            </div>
+                
+                
+            {% else %}
+                <p> Pas de produits disponibles </p>
+            {% endfor %}
+        </div> 
+    </div>
+    
 {% endblock %}
