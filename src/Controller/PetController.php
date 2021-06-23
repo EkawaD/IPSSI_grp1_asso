@@ -15,10 +15,11 @@ class PetController extends AbstractController
     #[Route('/pets', name: 'adopt')]
     public function index(): Response
     {
-        $pets = $this->getDoctrine()->getRepository(Pet::class)->findAll();
-        // $pets = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
+        $pets = $this->getDoctrine()->getRepository(Pet::class)->findBy(["adoptedAt" => null]);
+        $pets_last = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
         return $this->render('pet/index.html.twig', [
             'pets' => $pets,
+            'pets_last' => $pets_last,
         ]);
     }
 
@@ -46,7 +47,6 @@ class PetController extends AbstractController
                 "id" => $pet->getId(),
             ]);
         }
-
 
         return $this->render('pet/add.html.twig', [
             'form' => $form->createView()

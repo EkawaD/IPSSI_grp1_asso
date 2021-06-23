@@ -26,7 +26,7 @@ class PetRepository extends ServiceEntityRepository
     {        
         $qb = $this->createQueryBuilder('p');
         return $qb
-            ->select('p.id', 'p.name', 'p.species', 'p.breed', 'p.age', 'p.weight', 'p.sex', 'p.adoptedAt', 'p.imageUrl')
+            ->select('p.id', 'p.name', 'p.species', 'p.breed', 'p.age', 'p.weight', 'p.sex', 'p.adoptedAt', 'p.image')
             ->andWhere('DATE_DIFF(CURRENT_DATE(), p.adoptedAt) < 30')
             ->orderBy('p.id', 'ASC')
             // ->setMaxResults(30)
@@ -34,6 +34,8 @@ class PetRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
 
     /*
     public function findOneBySomeField($value): ?Pet
