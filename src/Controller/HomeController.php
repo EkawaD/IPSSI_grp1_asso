@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pet;
+use App\Entity\Product;
 use App\Entity\Donation;
 use App\Form\DonationType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,12 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $pets_last = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         $total = $this->getDoctrine()->getRepository(Donation::class)->findAllAmount();
 
         return $this->render('home/index.html.twig', [
             'pets_last' => $pets_last,
+            'products' => $products,
             'total' => $total["total"],
         ]);
     }

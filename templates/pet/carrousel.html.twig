@@ -11,7 +11,7 @@
             <div class="carousel-inner">
                 {% for pet in pets_last %}
                     <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}"> 
-                        <img src="{{asset('img/upload/'~pet.image)}}"/>
+                        <a href={{ path('pet', { 'id': pet.id }) }}><img src="{{asset('img/upload/'~pet.image)}}"/></a>
                     </div>
                 {% endfor %}
             </div>
@@ -28,6 +28,4 @@
     {% else %}
         <p>Y'en a pas !</p>
     {% endif %}
-    
-        
 </div>

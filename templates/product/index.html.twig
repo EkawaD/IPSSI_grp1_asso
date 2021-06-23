@@ -9,6 +9,8 @@
         </div>
     {% endfor %}
 
+    {% include "product/carrousel.html.twig" %}
+
     {% for product in products %}
         <div class="container-fluid">
             {{product.name}}
