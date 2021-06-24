@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $pets_last = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $products = $this->getDoctrine()->getRepository(Product::class)->find5();
         $total = $this->getDoctrine()->getRepository(Donation::class)->findAllAmount();
 
         return $this->render('home/index.html.twig', [
