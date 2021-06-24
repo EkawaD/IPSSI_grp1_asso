@@ -137,11 +137,14 @@ button[type="submit"]{
     padding: 1em;
     border-radius: 50%;
     background-color: #fdc009;
-    color: white;
+    color: white !important;
+    text-decoration: none;
+    user-select: text;
     font-size: 2em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 #cart-button .material-icons-outlined{
+    color: white;
     font-size: 2em;
 }
