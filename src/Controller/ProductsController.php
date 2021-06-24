@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\Product;
+use App\Form\CartType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +18,11 @@ class ProductsController extends AbstractController
     #[Route('/products', name: 'products')]
     public function index(): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->find5();
+        $products_5 = $this->getDoctrine()->getRepository(Product::class)->find5();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'products_5' => $products_5,
         ]);
     }
 
@@ -55,10 +59,30 @@ class ProductsController extends AbstractController
 
     
     #[Route('/product/{id}', name: 'product')]
-    public function product(Product $product)
+    public function product(Request $request, Product $product)
     {
+
+        $form = $this->createForm(CartType::class);
+        $form->handleRequest($request);
+        
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $cart = $this->getUser()->getCart();
+            $cart->addProduct($product);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cart);
+            $em->flush();
+
+            $this->addFlash("product-add", "Produit ajouté au panier sale merguez ! ");
+        
+            return $this->redirectToRoute("products");
+        }
+
         return $this->render("product/single.html.twig", [
-            "product" => $product
+            "product" => $product,
+            'form' => $form->createView()
         ]);
     }
 
@@ -102,4 +126,5 @@ class ProductsController extends AbstractController
     
         return $this->redirectToRoute("products");
     }
+
 }

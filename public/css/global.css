@@ -2,7 +2,7 @@
 @import "pet.css";
 
 :root {
-    --bg-color: #334d5f;
+    --bg-color: #6f42c1;
 }
 body > .content > * + *{
     margin-top: 2em;
@@ -109,9 +109,7 @@ button[type="submit"]{
     grid-template-columns: minmax(200px, 50%) 1fr;
     gap: 1em;
 }
-.single-card > p{
-    
-}
+
 .single-card > p > label{
     display: block;
     font-size: 0.9em;

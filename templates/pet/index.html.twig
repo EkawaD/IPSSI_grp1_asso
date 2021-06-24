@@ -16,6 +16,12 @@
         </div>
     {% endfor %}
 
+    {% for message in app.flashes('success_adopt') %}
+        <div class="flash-message text-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
 
     {% include "pet/carrousel.html.twig" %}
 

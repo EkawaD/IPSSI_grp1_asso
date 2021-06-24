@@ -11,20 +11,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
 
 class HomeController extends AbstractController
-{
+{      
+
     #[Route('/', name: 'home')]
     public function index(): Response
     {
         $pets_last = $this->getDoctrine()->getRepository(Pet::class)->findPetLastMonth();
-        $products = $this->getDoctrine()->getRepository(Product::class)->find5();
+        $products_5 = $this->getDoctrine()->getRepository(Product::class)->find5();
         $total = $this->getDoctrine()->getRepository(Donation::class)->findAllAmount();
+
 
         return $this->render('home/index.html.twig', [
             'pets_last' => $pets_last,
-            'products' => $products,
-            'total' => $total["total"],
+            'products_5' => $products_5,
+            'total' => $total["total"]
         ]);
     }
 

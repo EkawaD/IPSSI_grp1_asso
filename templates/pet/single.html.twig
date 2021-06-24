@@ -15,7 +15,9 @@
         </div>
     </div>
     <div class="buttons-wrapper multiple-columns">
-        <a role="button" class="btn btn-outline-success" href="#" >  Adopter le petit</a>
+        {% if is_granted("ROLE_USER") %}
+        <a role="button" class="btn btn-outline-success" href={{ path('success_adopt', { 'id': pet.id }) }} >  Adopter le petit</a>
+        {% endif %}
         {% if is_granted("ROLE_ADMIN") %}
             <a role="button" class="btn btn-outline-danger" href={{ path('delete_pet', { 'id': pet.id }) }} > Supprimer pet (il est dead :/)</a>
             <a role="button" class="btn btn-outline-warning" href={{ path('update_pet', { 'id': pet.id }) }} > Modifier pet (il a grandi ce con)</a>

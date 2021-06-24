@@ -47,10 +47,6 @@ class Product
      */
     private $image;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Cart::class, mappedBy="products")
-     */
-    private $carts;
 
     public function __construct()
     {
@@ -125,24 +121,6 @@ class Product
         return $this->carts;
     }
 
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->carts->contains($cart)) {
-            $this->carts[] = $cart;
-            $cart->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->carts->removeElement($cart)) {
-            $cart->removeProduct($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @ORM\PostRemove
@@ -154,4 +132,6 @@ class Product
         }
         return true;
     }
+
+
 }

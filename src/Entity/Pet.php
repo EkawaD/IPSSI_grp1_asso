@@ -65,6 +65,11 @@ class Pet
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pets")
+     */
+    private $owner;
+
 
     public function getId(): ?int
     {
@@ -182,6 +187,18 @@ class Pet
             unlink(__DIR__.'/../../public/img/upload/'.$this->image);
         }
         return true;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 
 }

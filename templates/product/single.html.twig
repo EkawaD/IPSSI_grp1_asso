@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="card-content">
-        <img src={{asset('img/upload/'~product.image)}} alt="photo_animal_adopt">
+        <img src={{asset('img/upload/'~product.image)}} alt="photo_animal_adopt" class="img">
         <div class="single-card">
             <p><label>Name</label>{{ product.name }}</p>
             <p><label>Description</label>{{ product.description }}</p>
@@ -12,11 +12,14 @@
         </div>
     </div>
     <div class="buttons-wrapper multiple-columns">
-        <a role="button" class="btn btn-outline-success" href="#" >Acheter</a>
-            {% if is_granted("ROLE_ADMIN") %}
-                <a role="button" class="btn btn-outline-danger" href={{ path('delete_product', { 'id': product.id }) }} > Supprimer produit</a>
-                <a role="button" class="btn btn-outline-warning" href={{ path('update_product', { 'id': product.id }) }} > Modifier produit</a>
-            {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            {{form_start(form)}}
+            {{form_end(form)}}
+        {% endif %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a role="button" class="btn btn-outline-danger" href={{ path('delete_product', { 'id': product.id }) }} > Supprimer produit</a>
+            <a role="button" class="btn btn-outline-warning" href={{ path('update_product', { 'id': product.id }) }} > Modifier produit</a>
+        {% endif %}
         <a role="button" class="btn btn-outline-secondary" href={{ path('products') }} >Retour aux products</a>
     </div>
 {% endblock %}

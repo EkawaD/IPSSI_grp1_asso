@@ -2,39 +2,92 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Article;
+
+use Faker;
 use App\Entity\Pet;
-use App\Entity\Product;
 use DateTimeImmutable;
+use App\Entity\Article;
+use App\Entity\Product;
+use Symfony\Component\Finder\Finder;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\HttpFoundation\File\File;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $faker = Faker\Factory::create('fr_FR');
+
+        $finderProducts = new Finder();
+        $finderPets = new Finder();
+
+        $myProductImages = [];
+        $myPetsImages = [];
+
+        $sourceProductsFolder = "public/img/exemples/products/";
+        $sourcePetsFolder = "public/img/exemples/pets/";
+        $destFolder = "public/img/upload/";
+
+        // Rechercher les images de produits
+        $files = $finderProducts->files()->in($sourceProductsFolder);
+        foreach ($files as $file) {
+            // $absoluteFilePath = $file->getRealPath();
+            $fileNameWithExtension = $file->getRelativePathname();
+            $myProductImages[] = $fileNameWithExtension;
+        }
+
+        // Rechercher les images des animaux
+        $files = $finderPets->files()->in($sourcePetsFolder);
+        foreach ($files as $file) {
+            // $absoluteFilePath = $file->getRealPath();
+            $fileNameWithExtension = $file->getRelativePathname();
+            $myPetsImages[] = $fileNameWithExtension;
+        }
+
+        // Affectations des produits en base de données
         for ($i = 0; $i < 20; $i++) {
             $product = new Product();
-            $product->setName('product '.$i);
-            $product->setDescription('desc '.$i);
-            $product->setPrice(mt_rand(10, 100));
-            $product->setImage("4ac8afbd184b24c29003f6123fb52e3c.png");
+            $product->setName($faker->name);
+            $product->setDescription(implode(' ', $faker->words()));
+            $product->setPrice($faker->randomFloat(2, 10, 100));
+
+            // Nom de l'image + extension
+            $nbAlea = mt_rand(0, count($myProductImages)-1);
+            // Copier l'image
+            copy($sourceProductsFolder.$myProductImages[$nbAlea], $destFolder.$myProductImages[$nbAlea]);
+            // Renomer L'image
+            $newName = md5(uniqid()).'.jpg';
+            rename($destFolder.$myProductImages[$nbAlea], $destFolder.$newName);
+            // Insérer en base de données
+            $product->setImage($newName);
             $manager->persist($product);
         }
 
+        // Affectations des animaux en base de données
         for ($i = 0; $i < 20; $i++) {
             $pet = new Pet();
-            $pet->setName('pet '.$i);
-            $pet->setSpecies('species '.$i);
-            $pet->setBreed('breed '.$i);
-            $pet->setAge($i);
-            $pet->setWeight($i);      
+            $pet->setName($faker->name);
+            $pet->setSpecies($faker->jobTitle); 
+            $pet->setBreed($faker->state);
+            $pet->setAge($faker->randomFloat(0, 1, 25));
+            $pet->setWeight($faker->randomFloat(0, 1, 25));
+            
+            // Nom de l'image + extension
+            $nbAlea = mt_rand(0, count($myPetsImages)-1);
+            // Copier l'image
+            
+            copy($sourcePetsFolder.$myPetsImages[$nbAlea], $destFolder.$myPetsImages[$nbAlea]);
+            // Renomer L'image
+            $newName = md5(uniqid()).'.jpg';
+            rename($destFolder.$myPetsImages[$nbAlea], $destFolder.$newName);
+            // Insérer en base de données
+            $pet->setImage($newName);
+
             if ($i%2 == 0 ) {
                 $pet->setSex('female');
                 $pet->setAdoptedAt(new \DateTimeImmutable);
-                $pet->setImage("450f9c2b6cc505cb99b617235793bca9.jpg.");
             } else {
-                $pet->setImage("f39600adad341cb6402d7de581cd5ab6.jpg.");
                 $pet->setSex('male');
             }
             
@@ -43,12 +96,10 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 20; $i++) {
             $article = new Article();
-            $article->setTitle('article '.$i);
-            $article->setDescription('desc '.$i);
+            $article->setTitle($faker->name);
+            $article->setDescription(implode(' ', $faker->words()));
             $manager->persist($article);
         }
-       
-
         $manager->flush();
     }
 }

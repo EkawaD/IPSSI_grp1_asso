@@ -101,4 +101,22 @@ class PetController extends AbstractController
             "pet" => $pet
         ]);
     }
+
+    #[Route('/pet/{id}/adopt', name: 'success_adopt'), IsGranted("ROLE_USER")]
+    public function successAdopt(Pet $pet)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $pet->setAdoptedAt(new \DateTimeImmutable);
+        $pet->setOwner($this->getUser());
+
+        $em->persist($pet);
+        $em->flush();
+
+        $this->addFlash('success_adopt', 'Merci d\'avoir adopté '.$pet->getName().' ! 🤩');
+
+        return $this->redirectToRoute("adopt");
+    }
+
+
 }
