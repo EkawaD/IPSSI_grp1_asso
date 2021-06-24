@@ -3,27 +3,32 @@
 {% block title %}Adopter un animal{% endblock %}
 
 {% block content %}
-    {% include "pet/carrousel.html.twig" %}
+
+    {% if is_granted("ROLE_ADMIN") %}
+    <div class="buttons-wrapper">
+        <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> Ajouter un animal</a>
+    </div>
+    {% endif %}
 
     {% for message in app.flashes('pet-danger') %}
         <div class="text-danger">
             {{ message }}
         </div>
     {% endfor %}
-    
-    
-    <div class="container-fluid card-deck">
-        <h1>Tout nos animaux en adoption !</h1<div class="row row-cols-1 row-cols-md-2 g-4 card-pet"></div>>
-        
+
+
+    {% include "pet/carrousel.html.twig" %}
+
+    <div class="container-fluid">
+        <h1>Tout nos animaux en adoption !</h1>
+        <div class="cards-wrapper">
             {% for pet in pets %} 
-                <div class="col">
-                    <div class="card">
-                        <img class="img-pet" src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
-                        <div class="card-body">
-                            <h5 class="card-title">{{pet.name}}</h5>
-                            <p class="card-text">{{pet.species}}, {{pet.breed}}</p>
-                            <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
-                        </div>
+                <div class="card">
+                    <img src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
+                    <div class="card-body">
+                        <h5 class="card-title">{{pet.name}}</h5>
+                        <p class="card-text">{{pet.species}}, {{pet.breed}}</p>
+                        <a  role="button" class="btn btn-outline-dark" href={{ path('pet', { 'id': pet.id }) }} >  En savoir plus</a>
                     </div>
                 </div>
             {% else %}
@@ -31,15 +36,7 @@
             {% endfor %}
         </div>
     </div> 
-  
-
-    {% if is_granted("ROLE_ADMIN") %}
-    <div class="text-center">
-        <a  role="button" class="btn btn-outline-dark" href={{ path('new_pet') }}> Ajouter un animal</a>
-    </div>
-        
-    {% endif %}
-    
+            
 {% endblock %}
 
 
