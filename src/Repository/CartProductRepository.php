@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CardProduct[]    findAll()
  * @method CardProduct[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CardProductRepository extends ServiceEntityRepository
+class CartProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -20,7 +20,7 @@ class CardProductRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return CardProduct[] Returns an array of CardProduct objects
+    //  * @return CartProduct[] Returns an array of CardProduct objects
     //  */
     /*
     public function findByExampleField($value)

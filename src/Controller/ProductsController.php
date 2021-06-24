@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Cart;
+
 use App\Entity\Product;
-use App\Form\CartType;
 use App\Form\ProductType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\CartProduct;
+use App\Form\CartProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ProductsController extends AbstractController
@@ -62,20 +63,23 @@ class ProductsController extends AbstractController
     public function product(Request $request, Product $product)
     {
 
-        $form = $this->createForm(CartType::class);
+        $cartProduct = new CartProduct();
+        $form = $this->createForm(CartProductType::class, $cartProduct);
         $form->handleRequest($request);
         
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $cart = $this->getUser()->getCart();
-            $cart->addProduct($product);
+    
+            $cartProduct->setProduct($product);
+            $cartProduct->setCart($cart);
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($cart);
+            $em->persist($cartProduct);
             $em->flush();
 
-            $this->addFlash("product-add", "Produit ajouté au panier sale merguez ! ");
+            $this->addFlash("product-add", "Produit ".$product->getName()." x".$cartProduct->getQuantity()." ajouté au panier !");
         
             return $this->redirectToRoute("products");
         }

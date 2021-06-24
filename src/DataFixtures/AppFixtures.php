@@ -68,8 +68,8 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 20; $i++) {
             $pet = new Pet();
             $pet->setName($faker->name);
-            $pet->setSpecies($faker->jobTitle); 
-            $pet->setBreed($faker->state);
+            $pet->setSpecies($faker->name); 
+            $pet->setBreed($faker->name);
             $pet->setAge($faker->randomFloat(0, 1, 25));
             $pet->setWeight($faker->randomFloat(0, 1, 25));
             

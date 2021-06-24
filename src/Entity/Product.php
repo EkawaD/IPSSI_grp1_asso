@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\CartProduct;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -47,10 +48,16 @@ class Product
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartProduct::class, mappedBy="product")
+     */
+    private $cartProducts;
+
 
     public function __construct()
     {
         $this->carts = new ArrayCollection();
+        $this->cartProducts = new ArrayCollection();
     }
 
 
@@ -131,6 +138,36 @@ class Product
             unlink(__DIR__.'/../../public/img/upload/'.$this->image);
         }
         return true;
+    }
+
+    /**
+     * @return Collection|cartProdcut[]
+     */
+    public function getCartProducts(): Collection
+    {
+        return $this->cartProdcuts;
+    }
+
+    public function addCartProduct(CartProduct $cartProdcut): self
+    {
+        if (!$this->cartProdcuts->contains($cartProdcut)) {
+            $this->cartProdcuts[] = $cartProdcut;
+            $cartProdcut->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartProdcut(CartProduct $cartProdcut): self
+    {
+        if ($this->cartProdcuts->removeElement($cartProdcut)) {
+            // set the owning side to null (unless already changed)
+            if ($cartProdcut->getProduct() === $this) {
+                $cartProdcut->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 
 
