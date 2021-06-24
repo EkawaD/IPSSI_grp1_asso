@@ -3,19 +3,23 @@
 {% block title %} {{pet.name}} adoption {% endblock %}
 
 {% block content %}
-    <h2> + /BUTTON/ Adopter un animal > Redirect "Se connecter" </h2>
-    <p>{{ pet.name }}</p>
-    <img class="img-pet" src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
-    <p>{{ pet.species }}</p>
-    <p>{{ pet.breed }}</p>
-    <p>{{ pet.age }}</p>
-    <p>{{ pet.weight }}</p>
-    <p>{{ pet.sex }}</p>
-    <a  role="button" class="btn btn-outline-success" href="#" >  Adopter le petit</a>
-    {% if is_granted("ROLE_ADMIN") %}
-        <a  role="button" class="btn btn-outline-danger" href={{ path('delete_pet', { 'id': pet.id }) }} > Supprimer pet (il est dead :/)</a>
-        <a  role="button" class="btn btn-outline-warning" href={{ path('update_pet', { 'id': pet.id }) }} > Modifier pet (il a grandi ce con)</a>
-    {% endif %}
-    
-    <a  role="button" class="btn btn-outline-secondary" href={{ path('adopt') }} > Retour aux pets adopté</a>
+    <div class="card-content">
+        <img class="img-pet" src={{asset('img/upload/'~pet.image)}} alt="photo_animal_adopt">
+        <div class="single-card">
+            <p><label>Name</label>{{ pet.name }}</p>
+            <p><label>Species</label>{{ pet.species }}</p>
+            <p><label>Breed</label>{{ pet.breed }}</p>
+            <p><label>Age</label>{{ pet.age }}</p>
+            <p><label>Weight</label>{{ pet.weight }}</p>
+            <p><label>Sex</label>{{ pet.sex }}</p>
+        </div>
+    </div>
+    <div class="buttons-wrapper multiple-columns">
+        <a role="button" class="btn btn-outline-success" href="#" >  Adopter le petit</a>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a role="button" class="btn btn-outline-danger" href={{ path('delete_pet', { 'id': pet.id }) }} > Supprimer pet (il est dead :/)</a>
+            <a role="button" class="btn btn-outline-warning" href={{ path('update_pet', { 'id': pet.id }) }} > Modifier pet (il a grandi ce con)</a>
+        {% endif %}
+        <a role="button" class="btn btn-outline-secondary" href={{ path('adopt') }} > Retour aux pets adopté</a>
+    </div>
 {% endblock %}

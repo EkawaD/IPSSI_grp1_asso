@@ -4,6 +4,9 @@
 :root {
     --bg-color: #334d5f;
 }
+body > .content > * + *{
+    margin-top: 2em;
+}
 
 #donate-button{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -29,7 +32,7 @@
 }
 
 .content {
-    margin: 4em;
+    margin: 1em 2em;
     min-height: 80vh;
 }
 
@@ -45,8 +48,9 @@ footer{
 }
 
 .card img {
-    max-width: 80vh;
-    max-height: 50vh;
+    max-width: 33vw;
+    max-height: 30vh;
+    object-fit: contain;
 }
 
 form {
@@ -54,7 +58,6 @@ form {
     gap: 0.5rem;
     width: 50%;
 }
-
 form > div {
     display: grid;
 }
@@ -62,8 +65,9 @@ form > div {
 label{
     font-size: 1.2em;
     color: #343842;
+    white-space: nowrap;
 }
-input:not(input[type="submit"]){
+input:not(input[type="submit"]), textarea{
     border-radius: 0.3em;
     padding: 0.3em 0.5em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -72,4 +76,54 @@ input:not(input[type="submit"]){
 button[type="submit"]{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     font-size: 1.2em;
+    border: none;
+}
+
+.buttons-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100%);
+    gap: 0.5em;
+}
+
+.buttons-wrapper.multiple-columns{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.cards-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1em;
+}
+.cards-wrapper > div{
+    overflow: hidden;
+}
+
+.single-card{
+    font-size: 1.2em;
+}
+.card-content img{
+    width: 100%;
+}
+.card-content{
+    display: grid;
+    grid-template-columns: minmax(200px, 50%) 1fr;
+    gap: 1em;
+}
+.single-card > p{
+    
+}
+.single-card > p > label{
+    display: block;
+    font-size: 0.9em;
+    color: grey;
+}
+
+/* MODIFICATION BOOTSTRAP CLASS */
+
+.card{
+    justify-content: space-between;
+}
+
+.card-body{
+    flex: none;
 }
