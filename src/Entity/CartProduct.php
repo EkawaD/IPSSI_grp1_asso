@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\CardProductRepository;
+use App\Repository\CartProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CartProductRepository::class)
@@ -29,6 +30,7 @@ class CartProduct
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $quantity;
 

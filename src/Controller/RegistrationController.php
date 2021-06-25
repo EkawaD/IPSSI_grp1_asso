@@ -34,9 +34,7 @@ class RegistrationController extends AbstractController
             // do anything else you need here, like send an email
             
             $data = [$form->get('email')->getData(), $form->get('plainPassword')->getData()];
-            $this->addFlash('register_info', $data);
-
-            return $this->redirectToRoute('app_login');
+            return $this->forward('App\Controller\SecurityController::login', ['data'  => $data]);
         }
 
         return $this->render('registration/register.html.twig', [

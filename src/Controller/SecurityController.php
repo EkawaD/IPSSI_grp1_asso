@@ -13,7 +13,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login( AuthenticationUtils $authenticationUtils): Response
+    public function login( AuthenticationUtils $authenticationUtils, $data=[]): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -24,13 +24,13 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $current = $this->get('session')->getFlashBag()->get('register_info');
-        if($current) {
-            $email = $current[0][0];
-            $pw =  $current[0][1];
+
+        if($data) {
+            $email = $data[0];
+            $pw = $data[1];
         }else {
-            $email = "";
-            $pw = "";
+            $email = '';
+            $pw = '';
         }
 
         return $this->render('security/login.html.twig', ['email' => $email, 'error' => $error, 'current_password' => $pw]);

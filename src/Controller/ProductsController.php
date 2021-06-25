@@ -66,6 +66,7 @@ class ProductsController extends AbstractController
         $cartProduct = new CartProduct();
         $form = $this->createForm(CartProductType::class, $cartProduct);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
         
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +76,6 @@ class ProductsController extends AbstractController
             $cartProduct->setProduct($product);
             $cartProduct->setCart($cart);
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($cartProduct);
             $em->flush();
 

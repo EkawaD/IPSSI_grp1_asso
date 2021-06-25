@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block content %}
+
+    <div class="cart-wrapper">
+        <h1>Votre panier ✅</h1>
+
+        {# liste produits #}
+        
+        <ul>
+            {% for item in cart %}  
+                <li>
+                    <img src={{ asset('img/upload/'~item.product.image) }} alt="img-product">
+                    <h2>{{ item.product.name }}</h2>
+                    <h3>Quantité: </h3>
+                    <form action="{{path('update_qt', { 'id': item.id })}}" method="POST">
+                        <input name="qt" id="qt" type="number" value="{{item.quantity}}">
+                        <button type="submit" class="btn btn-warning"> Modifier</button>
+                    </form>
+                    <p>Prix : {{item.product.price * item.quantity}}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p>Total prix :{{total}}</p>
+            
+        
+        
+
+       <a role="button" href={{path('buy')}} class="btn btn-success"> Acheter </a>
+    </div>
+{% endblock %}
