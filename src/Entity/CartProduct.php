@@ -19,12 +19,12 @@ class CartProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="cardProducts")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="cartProducts")
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="cardProducts")
+     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="cartProducts")
      */
     private $cart;
 

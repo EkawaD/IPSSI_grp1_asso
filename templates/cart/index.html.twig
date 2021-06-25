@@ -7,28 +7,35 @@
     <div class="cart-wrapper">
         <h1>Votre panier ✅</h1>
 
-        {# liste produits #}
+        {% for msg in app.flashes('success_buy') %}
+            <div class="text-success flash-message">
+                {{msg}}
+            </div>
+        {% endfor %}
         
         <ul>
             {% for item in cart %}  
-                <li>
-                    <img src={{ asset('img/upload/'~item.product.image) }} alt="img-product">
-                    <h2>{{ item.product.name }}</h2>
-                    <h3>Quantité: </h3>
-                    <form action="{{path('update_qt', { 'id': item.id })}}" method="POST">
-                        <input name="qt" id="qt" type="number" value="{{item.quantity}}">
-                        <button type="submit" class="btn btn-warning"> Modifier</button>
-                    </form>
-                    <p>Prix : {{item.product.price * item.quantity}}</p>
+                <li class='row'>
+                    <div class="col-lg-3">
+                        <img src={{ asset('img/upload/'~item.product.image) }} alt="img-product" class="img-cart">
+                    </div>
+                    <div class="col-lg-8">
+                        <h2>{{ item.product.name }}</h2>
+                        <h3>Quantité: </h3>
+                        <form action="{{path('update_qt', { 'id': item.id })}}" method="POST">
+                            <input name="qt" id="qt" type="number" value="{{item.quantity}}" min="1">
+                            <button type="submit" class="btn btn-warning"> Modifier</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-1 price">Prix : {{item.product.price * item.quantity}} €</div>
+                    
                 </li>
             {% endfor %}
         </ul>
 
-        <p>Total prix :{{total}}</p>
-            
-        
-        
-
-       <a role="button" href={{path('buy')}} class="btn btn-success"> Acheter </a>
+        {% if total != 0 %}
+            <p>Total prix : {{total|round(2, 'floor')}} €</p>
+            <a role="button" href={{path('buy')}} class="btn-lg btn-success"> Acheter </a>
+        {% endif %}
     </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 @import "home.css";
 @import "pet.css";
+@import "cart.css";
 
 :root {
     --bg-color: #6f42c1;

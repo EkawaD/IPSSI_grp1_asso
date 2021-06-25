@@ -39,7 +39,7 @@
                     </div>
                     <div class="d-flex">
                         <a role="button" type="button" id="donate-button"  href={{ path('donate')}}>Donate 🥺</button>
-                        {% if app.user %}<a role="button" class="btn btn-outline-danger" type="button" href={{ path('app_logout')}}>Déconnection</a>
+                        {% if app.user %}<a role="button" class="btn btn-danger" type="button" href={{ path('app_logout')}}>Déconnection</a>
                         {% else %}<a role="button" class="btn btn-outline-light" type="button" href={{ path('app_login')}}>Se connecter</a>
                         {% endif %}
                         

@@ -26,6 +26,7 @@
 
 .flash-message{
     font-size: 1.5em;
+    margin: auto;
 }
 .flash-message.text-success{
     border: 2px solid green;
